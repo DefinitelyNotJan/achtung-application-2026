@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Jan Lönnqvist | AI Creative Concept | Achtung!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --red: #ff2d2d;
+            --gray: #888;
+            --light: #f5f5f5;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--white);
+            color: var(--black);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* ═══════════════════════════════════════════════ */
+        /* ASTERISK CURSOR                                 */
+        /* ═══════════════════════════════════════════════ */
+        .cursor-asterisk {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 32px;
+            color: var(--red);
+            transform: translate(-50%, -50%);
+            transition: transform 0.2s, color 0.2s;
+        }
+        .cursor-asterisk.hover {
+            transform: translate(-50%, -50%) scale(1.5) rotate(45deg);
+            color: var(--black);
+        }
+
+        /* ═══════════════════════════════════════════════ */
+        /* INTRO - ACHTUNG FLASH                           */
+        /* ═══════════════════════════════════════════════ */
+        #intro {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: var(--red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #intro.exit {
+            animation: flashOut 0.4s steps(4) forwards;
+        }
+        @keyframes flashOut {
+            0% { opacity: 1; }
+            25% { opacity: 0; }
+            50% { opacity: 1; }
+            75% { opacity: 0; }
+            100% { opacity: 0; display: none; }
+        }
+        .intro-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(4rem, 15vw, 12rem);
+            color: var(--white);
+            letter-spacing: 0.05em;
+        }
+
+        /* ═══════════════════════════════════════════════ */
+        /* NAV                                             */
+        /* ═══════════════════════════════════════════════ */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 24px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            mix-blend-mode: difference;
+        }
+        nav * { color: var(--white); }
+        .nav-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            letter-spacing: 0.1em;
+        }
+        .nav-role {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        nav a {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        nav a:hover { opacity: 0.6; }
+
+        /* ═══════════════════════════════════════════════ */
+        /* HERO - BOLD POSTER STYLE                        */
+        /* ═══════════════════════════════════════════════ */
+        .hero {
+            min-height: 100vh;
+            background: var(--black);
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 120px 48px 80px;
+            position: relative;
+        }
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .hero-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 32px;
+        }
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(4rem, 12vw, 11rem);
+            line-height: 0.9;
+            letter-spacing: 0.02em;
+        }
+        .hero h1 .red { color: var(--red); }
+        .hero-sub {
+            margin-top: 48px;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--gray);
+            max-width: 600px;
+        }
+        .hero-sub strong { color: var(--white); font-weight: 600; }
+        .hero-cta {
+            display: inline-block;
+            margin-top: 48px;
+            padding: 16px 40px;
+            background: var(--red);
+            color: var(--white);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .hero-cta:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+        .hero-scroll {
+            position: absolute;
+            bottom: 48px;
+            left: 48px;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gray);
+            writing-mode: vertical-rl;
+        }
+
+        /* ═══════════════════════════════════════════════ */
+        /* AI TOOLS - LARGE TYPE                           */
+        /* ═══════════════════════════════════════════════ */
+        .ai-tools {
+            padding: 160px 48px;
+            background: var(--white);
+        }
+        .ai-tools-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .ai-tools .label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 48px;
+        }
+        .tool-row {
+            display: flex;
+            align-items: baseline;
+            gap: 24px;
+            padding: 32px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        .tool-row:hover {
+            padding-left: 24px;
+            border-color: var(--red);
+        }
+        .tool-row:hover .tool-name { color: var(--red); }
+        .tool-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            color: var(--gray);
+            min-width: 48px;
+        }
+        .tool-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            letter-spacing: 0.02em;
+            transition: color 0.3s;
+        }
+        .tool-desc {
+            font-size: 14px;
+            color: var(--gray);
+            margin-left: auto;
+            max-width: 300px;
+            text-align: right;
+        }
+
+        /* ═══════════════════════════════════════════════ */
+        /* WHAT I DO - SPLIT                               */
+        /* ═══════════════════════════════════════════════ */
+        .what-i-do {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+        }
+        .what-left {
+            background: var(--black);
+            color: var(--white);
+            padding: 120px 64px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .what-left .label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 32px;
+        }
+        .what-left h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            line-height: 1;
+            margin-bottom: 32px;
+        }
+        .what-left p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--gray);
+            max-width: 480px;
+        }
+        .what-left p strong { color: var(--white); }
+        .what-right {
+            background: var(--light);
+            padding: 120px 64px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .what-item {
+            padding: 32px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .what-item:last-child { border-bottom: none; }
+        .what-item h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .what-item h3::before {
+            content: '*';
+            color: var(--red);
+        }
+        .what-item p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--gray);
+            padding-left: 28px;
+        }
+
+        /* ═══════════════════════════════════════════════ */
+        /* EXPERIENCE - MINIMAL LIST                       */
+        /* ═══════════════════════════════════════════════ */
+        .experience {
+            padding: 160px 48px;
+            background: var(--white);
+        }
+        .experience-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .experience .label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 64px;
+        }
+        .exp-item {
+            display: grid;
+            grid-template-columns: 140px 1fr 200px;
+            gap: 32px;
+            padding: 40px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            align-items: start;
+        }
+        .exp-item:last-child { border-bottom: none; }
+        .exp-year {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            color: var(--gray);
+        }
+        .exp-content h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            margin-bottom: 4px;
+        }
+        .exp-content .company {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 12px;
+        }
+        .exp-content p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--gray);
+        }
+        .exp-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+        .exp-tags span {
+            padding: 4px 12px;
+            border: 1px solid rgba(0,0,0,0.15);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ═══════════════════════════════════════════════ */
+        /* WHY ACHTUNG - MARQUEE                           */
+        /* ═══════════════════════════════════════════════ */
+        .marquee-section {
+            background: var(--red);
+            padding: 32px 0;
+            overflow: hidden;
+        }
+        .marquee-track {
+            display: flex;
+            animation: marquee 20s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-item {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            color: var(--white);
+            white-space: nowrap;
+            padding: 0 48px;
+        }
+        .marquee-item span { opacity: 0.5; }
+
+        /* ═══════════════════════════════════════════════ */
+        /* WHY ME - GRID                                   */
+        /* ═══════════════════════════════════════════════ */
+        .why-me {
+            padding: 160px 48px;
+            background: var(--black);
+            color: var(--white);
+        }
+        .why-me-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .why-me .label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 64px;
+        }
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: rgba(255,255,255,0.1);
+        }
+        .why-item {
+            background: var(--black);
+            padding: 48px 40px;
+            transition: all 0.3s;
+        }
+        .why-item:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        .why-item h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .why-item h3::before {
+            content: '*';
+            color: var(--red);
+        }
+        .why-item p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--gray);
+        }
+
+        /* ═══════════════════════════════════════════════ */
+        /* CTA                                             */
+        /* ═══════════════════════════════════════════════ */
+        .cta {
+            padding: 200px 48px;
+            background: var(--white);
+            text-align: center;
+        }
+        .cta h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(4rem, 10vw, 9rem);
+            line-height: 0.95;
+            margin-bottom: 48px;
+        }
+        .cta h2 .red { color: var(--red); }
+        .cta-btn {
+            display: inline-block;
+            padding: 20px 56px;
+            background: var(--black);
+            color: var(--white);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .cta-btn:hover {
+            background: var(--red);
+        }
+        .cta-links {
+            margin-top: 64px;
+            display: flex;
+            justify-content: center;
+            gap: 64px;
+        }
+        .cta-links a {
+            font-size: 14px;
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .cta-links a:hover { color: var(--black); }
+
+        /* ═══════════════════════════════════════════════ */
+        /* FOOTER                                          */
+        /* ═══════════════════════════════════════════════ */
+        footer {
+            padding: 32px 48px;
+            background: var(--black);
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--gray);
+            letter-spacing: 1px;
+        }
+
+        /* ═══════════════════════════════════════════════ */
+        /* RESPONSIVE                                      */
+        /* ═══════════════════════════════════════════════ */
+        @media (max-width: 1024px) {
+            .what-i-do { grid-template-columns: 1fr; }
+            .why-grid { grid-template-columns: 1fr 1fr; }
+            .exp-item { grid-template-columns: 1fr; gap: 16px; }
+            .exp-tags { justify-content: flex-start; }
+        }
+        @media (max-width: 768px) {
+            nav { padding: 16px 24px; }
+            .hero { padding: 100px 24px 60px; }
+            .hero-scroll { display: none; }
+            .ai-tools { padding: 80px 24px; }
+            .tool-row { flex-direction: column; gap: 8px; }
+            .tool-desc { margin-left: 0; text-align: left; max-width: none; }
+            .what-left, .what-right { padding: 80px 24px; }
+            .experience { padding: 80px 24px; }
+            .why-me { padding: 80px 24px; }
+            .why-grid { grid-template-columns: 1fr; }
+            .cta { padding: 100px 24px; }
+            .cta-links { flex-direction: column; gap: 16px; }
+            footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+            .cursor-asterisk { display: none; }
+            body { cursor: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ASTERISK CURSOR -->
+<div class="cursor-asterisk" id="cursor">*</div>
+
+<!-- INTRO -->
+<div id="intro">
+    <div class="intro-text">ACHTUNG!</div>
+</div>
+
+<!-- NAV -->
+<nav>
+    <div class="nav-logo">ACHTUNG!</div>
+    <div class="nav-role">AI Creative Concept / Hamburg</div>
+    <a href="mailto:jan.lonnqvist@windowslive.com">Contact</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-label">Application</div>
+        <h1>
+            AI CREATIVE<br>
+            <span class="red">CONCEPT</span>
+        </h1>
+        <p class="hero-sub">12+ years visual production. <strong>AI-first creative thinking</strong> with ChatGPT, Claude, Midjourney, and video generation tools. Ready to bring remarkable AI-driven ideas to Achtung! campaigns.</p>
+        <a href="#tools" class="hero-cta">View AI Stack</a>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- AI TOOLS -->
+<section class="ai-tools" id="tools">
+    <div class="ai-tools-inner">
+        <div class="label">AI Toolkit</div>
+        <div class="tool-row">
+            <div class="tool-num">01</div>
+            <div class="tool-name">ChatGPT</div>
+            <div class="tool-desc">Creative brainstorming, campaign ideation, copy generation, structured prompting</div>
+        </div>
+        <div class="tool-row">
+            <div class="tool-num">02</div>
+            <div class="tool-name">Claude</div>
+            <div class="tool-desc">Long-form strategy, nuanced creative briefs, workflow automation</div>
+        </div>
+        <div class="tool-row">
+            <div class="tool-num">03</div>
+            <div class="tool-name">Midjourney</div>
+            <div class="tool-desc">Visual concepts, mood boards, campaign imagery, presentation visuals</div>
+        </div>
+        <div class="tool-row">
+            <div class="tool-num">04</div>
+            <div class="tool-name">Veo 3 / Sora 2</div>
+            <div class="tool-desc">AI video generation for campaign concepts, rapid prototyping</div>
+        </div>
+        <div class="tool-row">
+            <div class="tool-num">05</div>
+            <div class="tool-name">Runway / Kling</div>
+            <div class="tool-desc">Motion design, video-to-video, image animation for presentations</div>
+        </div>
+        <div class="tool-row">
+            <div class="tool-num">06</div>
+            <div class="tool-name">ElevenLabs</div>
+            <div class="tool-desc">AI voiceover, multi-language narration, character voices</div>
+        </div>
+    </div>
+</section>
+
+<!-- WHAT I DO -->
+<section class="what-i-do">
+    <div class="what-left">
+        <div class="label">What I Do</div>
+        <h2>AI-FIRST<br>CREATIVE<br>THINKING</h2>
+        <p>I use LLMs as creative partners, not just tools. <strong>Structured prompting for campaign ideation</strong>, rapid visualization with generative AI, and video concepts that bring ideas to life before production begins. From PR stunts to visual campaigns, AI accelerates remarkable ideas.</p>
+    </div>
+    <div class="what-right">
+        <div class="what-item">
+            <h3>Campaign Ideation</h3>
+            <p>Using ChatGPT and Claude as brainstorming partners. Structured prompts that generate remarkable concepts faster.</p>
+        </div>
+        <div class="what-item">
+            <h3>Visual Concepts</h3>
+            <p>Midjourney and DALL-E for rapid visualization. Mood boards and campaign imagery in hours, not weeks.</p>
+        </div>
+        <div class="what-item">
+            <h3>Video Generation</h3>
+            <p>Veo 3, Sora 2, Runway for motion concepts. Bringing campaign ideas to life for client presentations.</p>
+        </div>
+        <div class="what-item">
+            <h3>PR Stunts & Storydoing</h3>
+            <p>AI-powered concept development for attention-grabbing activations that earn media and social buzz.</p>
+        </div>
+    </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience">
+    <div class="experience-inner">
+        <div class="label">Experience</div>
+        <div class="exp-item">
+            <div class="exp-year">2024</div>
+            <div class="exp-content">
+                <h3>Senior Graphic Designer</h3>
+                <div class="company">DHL / Agency / 12+ European Markets</div>
+                <p>Multi-market campaign delivery with AI integration. Self-led localization, rapid concept visualization, workflow optimization.</p>
+            </div>
+            <div class="exp-tags">
+                <span>AI Workflows</span>
+                <span>Campaigns</span>
+            </div>
+        </div>
+        <div class="exp-item">
+            <div class="exp-year">2022-24</div>
+            <div class="exp-content">
+                <h3>Visual Specialist</h3>
+                <div class="company">Rituals Cosmetics / Amsterdam / Global</div>
+                <p>Seasonal campaigns across 40+ markets. Pioneered AI tools for rapid prototyping and visual concept development.</p>
+            </div>
+            <div class="exp-tags">
+                <span>Global</span>
+                <span>AI Tools</span>
+            </div>
+        </div>
+        <div class="exp-item">
+            <div class="exp-year">2022</div>
+            <div class="exp-content">
+                <h3>Creative / DTP Lead</h3>
+                <div class="company">HelloFresh / Amsterdam</div>
+                <p>Led design team at Europe's largest meal kit company. High-volume creative production with AI-enhanced workflows.</p>
+            </div>
+            <div class="exp-tags">
+                <span>Leadership</span>
+                <span>High-Volume</span>
+            </div>
+        </div>
+        <div class="exp-item">
+            <div class="exp-year">2019</div>
+            <div class="exp-content">
+                <h3>Art Director</h3>
+                <div class="company">Valve / Helsinki</div>
+                <p>Art direction and concept development at one of Finland's leading creative agencies. Campaign ideation and client presentations.</p>
+            </div>
+            <div class="exp-tags">
+                <span>Agency</span>
+                <span>Concepts</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+    <div class="marquee-track">
+        <div class="marquee-item">IS IT REMARKABLE? <span>*</span></div>
+        <div class="marquee-item">IS IT REMARKABLE? <span>*</span></div>
+        <div class="marquee-item">IS IT REMARKABLE? <span>*</span></div>
+        <div class="marquee-item">IS IT REMARKABLE? <span>*</span></div>
+        <div class="marquee-item">IS IT REMARKABLE? <span>*</span></div>
+        <div class="marquee-item">IS IT REMARKABLE? <span>*</span></div>
+        <div class="marquee-item">IS IT REMARKABLE? <span>*</span></div>
+        <div class="marquee-item">IS IT REMARKABLE? <span>*</span></div>
+    </div>
+</div>
+
+<!-- WHY ME -->
+<section class="why-me">
+    <div class="why-me-inner">
+        <div class="label">Why Me</div>
+        <div class="why-grid">
+            <div class="why-item">
+                <h3>AI-Native Thinker</h3>
+                <p>I don't just use AI tools. I think with them. LLMs as creative partners, not just assistants. Structured prompting that generates remarkable ideas.</p>
+            </div>
+            <div class="why-item">
+                <h3>Full AI Stack</h3>
+                <p>ChatGPT, Claude, Gemini for ideation. Midjourney, DALL-E for visuals. Veo 3, Sora 2, Runway for video. The complete toolkit.</p>
+            </div>
+            <div class="why-item">
+                <h3>Agency Background</h3>
+                <p>Art direction at Valve Helsinki. Campaign work for DHL, Rituals, HelloFresh. I understand agency pace and client expectations.</p>
+            </div>
+            <div class="why-item">
+                <h3>Rapid Visualization</h3>
+                <p>From brief to visual concept in hours. AI-generated imagery and video that sell ideas in client presentations.</p>
+            </div>
+            <div class="why-item">
+                <h3>Genuine Enthusiasm</h3>
+                <p>"Echte Begeisterung" for AI creative. I stay current with every new tool, every new technique. This is what I love.</p>
+            </div>
+            <div class="why-item">
+                <h3>Relocate Ready</h3>
+                <p>Based in Amsterdam, ready to relocate to Hamburg. Immediate availability to join the AI & Automation team.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+    <h2>LET'S MAKE<br><span class="red">REMARKABLE</span><br>WORK</h2>
+    <a href="mailto:jan.lonnqvist@windowslive.com" class="cta-btn">Get In Touch</a>
+    <div class="cta-links">
+        <a href="mailto:jan.lonnqvist@windowslive.com">jan.lonnqvist@windowslive.com</a>
+        <a href="tel:+31619584748">+31 619 584 748</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <span>Jan Lönnqvist / 2026</span>
+    <span>Amsterdam, NL / Ready for Hamburg</span>
+</footer>
+
+<script>
+// ASTERISK CURSOR
+const cursor = document.getElementById('cursor');
+let cx = 0, cy = 0, tx = 0, ty = 0;
+
+document.addEventListener('mousemove', e => {
+    tx = e.clientX;
+    ty = e.clientY;
+});
+
+function animateCursor() {
+    cx += (tx - cx) * 0.15;
+    cy += (ty - cy) * 0.15;
+    cursor.style.left = cx + 'px';
+    cursor.style.top = cy + 'px';
+    requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+document.querySelectorAll('a, .tool-row, .what-item, .why-item, .exp-item').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+});
+
+// INTRO
+setTimeout(() => {
+    document.getElementById('intro').classList.add('exit');
+    setTimeout(() => document.getElementById('intro').remove(), 400);
+}, 1500);
+
+// PROTECTION
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+    if (e.key === 'F12') e.preventDefault();
+    if (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key)) e.preventDefault();
+    if (e.ctrlKey && e.key === 'u') e.preventDefault();
+});
+</script>
+
+</body>
+</html>
